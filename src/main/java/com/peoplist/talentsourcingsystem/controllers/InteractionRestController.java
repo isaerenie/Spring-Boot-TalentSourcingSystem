@@ -22,12 +22,12 @@ public class InteractionRestController {
     public ResponseEntity list(){
         return interactionService.list();
     }
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity update(@RequestBody Interaction interaction){
         return interactionService.update(interaction);
     }
-    @DeleteMapping("/delete")
-    public ResponseEntity delete(@RequestParam int interactionId){
+    @DeleteMapping("/delete/{interactionId}")
+    public ResponseEntity delete(@PathVariable int interactionId){
         return interactionService.delete(interactionId);
     }
     @GetMapping("/getCanInterList/{candidateId}")

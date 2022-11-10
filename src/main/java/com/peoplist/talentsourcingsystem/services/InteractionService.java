@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -24,7 +26,10 @@ final CanInterJoinRepository canInterJoinRepository;
     public ResponseEntity save(Interaction interaction) {
         Map<ERest, Object> hm = new LinkedHashMap<>();
         try {
-            interaction.setDate(new Date());
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            Date date = new Date();
+           interaction.setDate(date);
+            System.out.println();
             Interaction interaction1 = interactionRepository.save(interaction);
             hm.put(ERest.status, true);
             hm.put(ERest.result, interaction1);
@@ -53,6 +58,8 @@ final CanInterJoinRepository canInterJoinRepository;
         Optional<Interaction> optionalInteraction = interactionRepository.findById(interaction.getInteractionId());
         try {
             if (optionalInteraction.isPresent()) {
+               optionalInteraction.get().setDate(new Date());
+                System.out.println();
                 Interaction interaction1 = interactionRepository.saveAndFlush(interaction);
                 hm.put(ERest.status, true);
                 hm.put(ERest.result, interaction1);

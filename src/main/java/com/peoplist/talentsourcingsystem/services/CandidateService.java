@@ -63,20 +63,49 @@ public class CandidateService {
             }
         } catch (Exception e) {
             hm.put(ERest.status, false);
-            hm.put(ERest.error, "Error"+e);
+            hm.put(ERest.error, "Error" + e);
         }
         return new ResponseEntity(hm, HttpStatus.OK);
     }
 
-    public ResponseEntity delete(int candidateId){
+    public ResponseEntity delete(int candidateId) {
         Map<ERest, Object> hm = new LinkedHashMap<>();
         try {
-        candidateRepository.deleteById(candidateId);
+            candidateRepository.deleteById(candidateId);
             hm.put(ERest.status, true);
             hm.put(ERest.message, "Candidate deleted");
-        }catch (Exception e){
+        } catch (Exception e) {
             hm.put(ERest.status, false);
-            hm.put(ERest.message, "Error"+e);
+            hm.put(ERest.message, "Error" + e);
+        }
+        return new ResponseEntity(hm, HttpStatus.OK);
+    }
+
+    public ResponseEntity findByCandidateId(int candidateId) {
+        Map<ERest, Object> hm = new LinkedHashMap<>();
+        try {
+            Candidate candidate = candidateRepository.findByCandidateId(candidateId);
+            hm.put(ERest.status, true);
+            hm.put(ERest.result, candidate);
+        } catch (Exception e) {
+            hm.put(ERest.status, false);
+            hm.put(ERest.message, "Error" + e);
+        }
+        return new ResponseEntity(hm, HttpStatus.OK);
+    }
+
+    public ResponseEntity candidateChangeStatus(int candidateId, String candidateStatus) {
+        Map<ERest, Object> hm = new LinkedHashMap<>();
+        try {
+            Candidate candidate = candidateRepository.findByCandidateId(candidateId);
+            candidate.setCandidateStatus(candidateStatus);
+            Candidate candidate1 = candidateRepository.saveAndFlush(candidate);
+            hm.put(ERest.status, true);
+            hm.put(ERest.result, candidate1);
+
+        } catch (Exception e) {
+            hm.put(ERest.status, false);
+            hm.put(ERest.error, "Error" + e);
         }
         return new ResponseEntity(hm, HttpStatus.OK);
     }

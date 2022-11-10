@@ -23,12 +23,22 @@ public class CandidateController {
     public ResponseEntity list(){
         return candidateService.list();
     }
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity update(@RequestBody Candidate candidate){
         return candidateService.update(candidate);
+    }
+    @PostMapping("/candidateChangeStatus")
+    public ResponseEntity update(@RequestParam int candidateId,@RequestParam String candidateStatus){
+        return candidateService.candidateChangeStatus(candidateId,candidateStatus);
     }
     @DeleteMapping("/delete/{candidateId}")
     public ResponseEntity delete(@PathVariable int candidateId){
         return candidateService.delete(candidateId);
     }
+    @GetMapping("/findByCandidateId/{candidateId}")
+    public ResponseEntity findByCandidateId(@PathVariable int candidateId){
+        return candidateService.findByCandidateId(candidateId);
+    }
+
+
 }

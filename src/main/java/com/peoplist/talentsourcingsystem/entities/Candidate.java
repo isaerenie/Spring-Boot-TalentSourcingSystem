@@ -1,5 +1,4 @@
 package com.peoplist.talentsourcingsystem.entities;
-import com.peoplist.talentsourcingsystem.utils.CandidateStatus;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,6 +12,5 @@ public class Candidate {
     private String nameSurname;
     private String phone;
     private String email;
-    @Enumerated(EnumType.STRING)
-    private CandidateStatus candidateStatus;
+    private String candidateStatus;
 }
